@@ -1,5 +1,4 @@
 @baseUrl = http://localhost:5066/api
-@token =
 
 ###
 # @name tenant_a
