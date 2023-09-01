@@ -1,0 +1,37 @@
+@baseUrl = http://localhost:5066/api
+@token =
+
+###
+# @name tenant_a
+POST {{baseUrl}}/accounts/login
+Content-Type: application/json
+
+{
+    "userName": "user1",
+    "password": "user1"
+}
+
+###
+# @name tenant_b
+POST {{baseUrl}}/accounts/login
+Content-Type: application/json
+
+{
+    "userName": "user2",
+    "password": "user2"
+}
+
+### This API only allow user is from Tenant A
+GET {{baseUrl}}/jobs/999
+Authorization: Bearer {{tenant_a.response.body.token}}
+
+
+
+### This API only allow user is from Tenant B -> Fail
+GET {{baseUrl}}/jobs
+Authorization: Bearer {{tenant_a.response.body.token}}
+
+
+### This API only allow user is from Tenant B -> Success
+GET {{baseUrl}}/jobs
+Authorization: Bearer {{tenant_b.response.body.token}}

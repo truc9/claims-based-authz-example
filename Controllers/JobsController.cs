@@ -18,14 +18,23 @@ namespace ClaimsBasedAuthz.Controllers
         [Authorize(Policy = "TenantAOnly")]
         public IActionResult GetJobById([FromRoute] int jobId)
         {
-            return Ok(jobId);
+            return Ok(new JobModel
+            {
+                Description = $"Do home work with job {jobId}"
+            });
         }
 
         [HttpGet]
         [Authorize(Policy = "TenantBOnly")]
         public IActionResult GetAllJobs()
         {
-            return Ok("All Jobs");
+            return Ok(new List<JobModel>
+            {
+                new JobModel
+                {
+                    Description="Wash the dishes"
+                }
+            });
         }
     }
 }

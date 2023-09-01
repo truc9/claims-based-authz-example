@@ -30,7 +30,7 @@ namespace ClaimsBasedAuthz.Controllers
             }
 
             string token = GenerateToken(user);
-            return Ok(token);
+            return Ok(new JwtModel { Token = token });
         }
 
         private string GenerateToken(User user)
